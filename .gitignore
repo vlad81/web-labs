@@ -135,9 +135,5 @@ dmypy.json
 *.py[cod] 
 *$py.class
 
-
-# secrets
-
-secrets.py
  
 
