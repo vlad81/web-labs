@@ -1,0 +1,466 @@
+{
+	"info": {
+		"_postman_id": "ed55b192-36c2-4686-a62a-d99bd064b5bd",
+		"name": "BLOG test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "articles/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Contains latests commets key\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('latest_articles_list');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "PrivateKey",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/articles/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"articles",
+						""
+					]
+				},
+				"description": "Get list of latest articles"
+			},
+			"response": []
+		},
+		{
+			"name": "add_article/ non-logged",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Check json data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.error).to.eql(\"Non-logged user.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "PrivateKey",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/articles/add_article/?title=Postman Article Title&content=Postman Article Content",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"articles",
+						"add_article",
+						""
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Postman Article Title"
+						},
+						{
+							"key": "content",
+							"value": "Postman Article Content"
+						}
+					]
+				},
+				"description": "Add article"
+			},
+			"response": []
+		},
+		{
+			"name": "Get first article",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"let  jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Check title\", function () {",
+							"    pm.expect(jsonData.article_title).to.eql(\"Test article 1\");",
+							"});",
+							"",
+							"pm.test(\"Check author\", function () {",
+							"    pm.expect(jsonData.article_author).to.eql(\"vlad\");",
+							"});",
+							"",
+							"pm.test(\"Check content\", function () {",
+							"    pm.expect(jsonData.article_content).to.eql(\"Test Comment 1\");",
+							"});",
+							"",
+							"pm.test(\"Contains latests commets key\", function () {",
+							"    pm.expect(jsonData).to.have.property('latest_comments_list');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "PrivateKey",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/articles/3/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"articles",
+						"3",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Check json data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.successful_login).to.eql(true);",
+							"    pm.expect(jsonData.username).to.eql(\"vlad\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/account/login/?email=vlad81boiko@gmail.com&password=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"account",
+						"login",
+						""
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "vlad81boiko@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Log in user"
+			},
+			"response": []
+		},
+		{
+			"name": "add_article/ logged",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Check json data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.article_created).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "vlad",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/articles/add_article/?title=Postman Article Title&content=Postman Article Content",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"articles",
+						"add_article",
+						""
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Postman Article Title"
+						},
+						{
+							"key": "content",
+							"value": "Postman Article Content"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "about/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Check json data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.app_name).to.eql(\"JustBlog\");",
+							"    pm.expect(jsonData.about).to.eql(\"This is just blog created for study aims.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/about/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"about",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "account/home/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Check json data\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.username).to.eql(\"vlad\");",
+							"    pm.expect(jsonData.email).to.eql(\"vlad81boiko@gmail.com\");",
+							"    pm.expect(jsonData.date_joined).to.eql(\"\\\"2021-03-14T13:01:56.342Z\\\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "vlad",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/account/home/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"account",
+						"home",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
