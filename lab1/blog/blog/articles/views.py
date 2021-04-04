@@ -17,7 +17,7 @@ def index(request):
         articles[article.id] = {
             "title": article.title,
             "author_name": User.objects.get(id=article.author.id).username,
-            'article_content': article.content,
+            "article_content": article.content,
             "pub_date": json.dumps(article.pub_date, cls=DjangoJSONEncoder)
         }
 
@@ -58,7 +58,7 @@ def leave_comment(request, article_id):
     except:
         return Http404("Article not found")
 
-    if request.method == 'POST':
+    if request.method == 'GET':
         comment_text = request.GET['comment_text']
         article.comment_set.create(author=request.user, content=comment_text)
         data = {
