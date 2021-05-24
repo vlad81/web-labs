@@ -27,11 +27,14 @@ PROJECT_ROOT = os.path.dirname(__file__)
 SECRET_KEY = 'vy-&uho@dfw=j$c_tt9t=z-*ou_*6r_l0zsalibpl1b4yh#xgs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -141,3 +144,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = "example@gmail.com"
+EMAIL_HOST_PASSWORD = "password"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
