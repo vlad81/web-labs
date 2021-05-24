@@ -1,11 +1,20 @@
 import json
 
+from django import forms
+from django.conf.urls import url
+from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 from django.core.serializers.json import DjangoJSONEncoder
-from django.http import Http404, JsonResponse
+from django.http import Http404, JsonResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import re_path
 from django.utils import timezone
+from django.utils.safestring import mark_safe
+from django.views import View
+from django.views.generic import DetailView
 
-from .models import Article
+from .models import Article, Comment
 
 
 def index(request):
@@ -86,3 +95,13 @@ def add_article(request):
         }
 
     return JsonResponse(data, safe=False)
+
+
+def chat_index(request):
+    return render(request, 'chat_index.html', {})
+
+
+def chat_room(request, room_name):
+    return render(request, 'room.html', {
+        'room_name_json': mark_safe(json.dumps(room_name))
+    })

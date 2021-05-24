@@ -95,3 +95,6 @@ xdot==0.9
 xkit==0.0.0
 zipp==3.4.1
 zope.interface==4.3.2
+
+channels~=3.0.3
+celery~=5.0.5

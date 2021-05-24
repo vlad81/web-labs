@@ -41,10 +41,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'blog',
     'account',
     'articles',
-    'about'
+    'about',
+    'online_users',
+    'channels'
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'online_users.middleware.OnlineNowMiddleware',
 ]
 
 ROOT_URLCONF = 'blog.urls'
@@ -79,6 +92,9 @@ TEMPLATES = [
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 WSGI_APPLICATION = 'blog.wsgi.application'
+
+ASGI_APPLICATION = 'blog.asgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

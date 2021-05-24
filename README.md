@@ -19,3 +19,17 @@ https://docs.google.com/document/d/1nWJ6wg_F0O2N8D-zR4Haf_HMv5-stYshMnM9QDabQ5Q/
 
 
 
+# lab 2
+
+Implement server part of the Web-application
+
+Aim: to learn how to use Django-Channels
+Entire task: implement runtime functions of app and opportunity to manage online users
+Development tools: Python 3, Django, Django Channels, redis, Pycharm Community Edition
+
+# GoogleDoc:
+
+https://docs.google.com/document/d/1wJsmlEwPqxEBwHkpkQTMrUn1nlu38fWBatIku1a15fM/edit?usp=sharing
+
+
+
